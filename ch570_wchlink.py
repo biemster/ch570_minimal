@@ -7,7 +7,7 @@ from array import array
 import usb.core
 import usb.util
 
-CHIPTYPE_CH573 = 0x02
+CHIPTYPE_CH570 = 0x8b
 
 CH_USB_VENDOR_ID   = 0x1a86    # VID
 CH_USB_PRODUCT_ID  = 0x8010    # PID
@@ -21,7 +21,7 @@ CH_USB_TIMEOUT     = 5000      # timeout for USB operations
 CH_STR_PROG_DETECT = (0x81, 0x0d, 0x01, 0x01)
 CH_STR_PROG_SPEED  = (0x81, 0x0c, 0x02, 0x01, 0x02) # (0x01: 6000kHz, 0x02: 4000kHz, 0x03: 400kHz)
 CH_STR_CHIP_DETECT = (0x81, 0x0d, 0x01, 0x02)
-CH_STR_CHIP_SPEED  = (0x81, 0x0c, 0x02, CHIPTYPE_CH573, 0x02)
+CH_STR_CHIP_SPEED  = (0x81, 0x0c, 0x02, CHIPTYPE_CH570, 0x02)
 CH_STR_FLASH_PREP  = (0x81, 0x01, 0x08, 0x00, 0x00, 0x00, 0x00) # send to addr 0x00000000
 CH_STR_POLL_DEBUG  = (0x81, 0x08, 0x06, 0x04, 0x00, 0x00, 0x00, 0x00, 0x01)
 CH_STR_ACK1_DEBUG  = (0x81, 0x08, 0x06, 0x05, 0x00, 0x00, 0x00, 0x00, 0x02)
@@ -164,8 +164,8 @@ def prog_init():
     assert wch_link_command(CH_STR_PROG_SPEED) == [0x82, 0x0c, 0x01, 0x01]
 
 def chip_init():
-    assert wch_link_command(CH_STR_CHIP_DETECT)[3] == CHIPTYPE_CH573
-    print('* ch573 found, set speed to 4000kHz') # might be ok on 6000kHz too
+    assert wch_link_command(CH_STR_CHIP_DETECT)[3] == CHIPTYPE_CH570
+    print('* ch570 found, set speed to 4000kHz') # might be ok on 6000kHz too
     assert wch_link_command(CH_STR_CHIP_SPEED) == [0x82, 0x0c, 0x01, 0x01]
 
 def flash(fw = None):
